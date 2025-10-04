@@ -1,13 +1,16 @@
 import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
 import pool from "../BACKEND/src/Database/Database_connection.js";
 import authRoutes from "../BACKEND/src/routes/auth_route.js"
-import dotenv from "dotenv";
 import loginRoute from '../BACKEND/src/routes/login_route.js'
+import certificateRoutes from "./src/routes/certificate_route.js";
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json()); // user data ko parse karne ke liye
 
 
@@ -24,6 +27,7 @@ app.get("/", async (req, res) => {
 
 app.use("/auth", authRoutes);
 app.use("/auth", loginRoute)
+app.use("/certificate", certificateRoutes);
 
 
 app.listen(PORT, () => {
